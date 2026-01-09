@@ -4,14 +4,12 @@ WORKDIR /app/backend
 
 COPY requirements.txt /app/backend
 
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apk update \
- && apk add --no-cache \
+RUN microdnf update -y \
+ && microdnf install -y \
       gcc \
-      musl-dev \
-      mariadb-connector-c-dev \
-      pkgconfig
+      mysql-devel \
+      pkgconf-pkg-config \
+ && microdnf clean all
 
 RUN pip install --upgrade pip \
  && pip install -r requirements.txt
