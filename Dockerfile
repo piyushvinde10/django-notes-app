@@ -3,10 +3,13 @@ FROM python:3.9-slim
 WORKDIR /app/backend
 
 COPY requirements.txt /app/backend
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y gcc default-libmysqlclient-dev pkg-config \
-    && rm -rf /var/lib/apt/lists/*
+ && apt-get install -y --no-install-recommends \
+      gcc \
+      default-libmysqlclient-dev \
+      pkg-config \
+ && rm -rf /var/lib/apt/lists/*
 
 
 # Install app dependencies
